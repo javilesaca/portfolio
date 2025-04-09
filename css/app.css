@@ -328,7 +328,7 @@ body{
 .about .p{
     max-width: 40rem;
     margin: 0 0 1rem;
-    font-size: 1.6em;
+    font-size: 1.4em;
     text-align: left;
 
 }
@@ -387,6 +387,8 @@ body{
     pointer-events: none;
     border-radius: 50%;
     mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 3;
 
 
 }
