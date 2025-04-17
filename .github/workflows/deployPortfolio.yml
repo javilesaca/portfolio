@@ -17,10 +17,13 @@ jobs:
         run: sudo apt-get install -y lftp
 
       - name: Deploy to Namecheap via FTP
+        env:
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
+          lftp -u ${{ secrets.FTP_USERNAME }} --env-password ${{ secrets.FTP_SERVER }} <<EOF
           set ssl:verify-certificate no
           mirror -R ./ ./
           quit
           EOF
+
 
