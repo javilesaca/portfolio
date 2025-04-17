@@ -18,13 +18,14 @@ jobs:
 
       - name: Configure .netrc for FTP credentials
         run: |
-          echo "machine ${secrets.FTP_SERVER}" > ~/.netrc
-          echo "login ${secrets.FTP_USERNAME}" >> ~/.netrc
-          echo "password ${secrets.FTP_PASSWORD}" >> ~/.netrc
+          echo "machine ${FTP_SERVER}" > ~/.netrc
+          echo "login ${FTP_USERNAME}" >> ~/.netrc
+          echo "password ${FTP_PASSWORD}" >> ~/.netrc
 
       - name: Deploy to Namecheap via FTP
         run: |
           lftp -e "set ssl:verify-certificate no; mirror -R ./ ./; quit"
+
 
 
 
