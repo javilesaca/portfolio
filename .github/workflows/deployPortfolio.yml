@@ -18,10 +18,12 @@ jobs:
 
       - name: Deploy to Namecheap via FTP
         run: |
-          echo "set ssl:verify-certificate no" > lftp_script.txt
-          echo "mirror -R ./ ./" >> lftp_script.txt
-          echo "quit" >> lftp_script.txt
-          lftp -u "${{ secrets.FTP_USERNAME }}" -e "source lftp_script.txt" "${{ secrets.FTP_SERVER }}"
+          lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" "${{ secrets.FTP_SERVER }}" <<EOF
+          set ssl:verify-certificate no
+          mirror -R ./ ./
+          quit
+          EOF
+
 
 
 
