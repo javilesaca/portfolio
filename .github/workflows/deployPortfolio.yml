@@ -20,7 +20,7 @@ jobs:
       # Paso 3: Subir archivos via FTP
       - name: Upload files to Namecheap FTP server
         run: |
-          lftp -e "mirror -R ./ /public_html; quit" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ftp://${{ secrets.FTP_SERVER }}
+          lftp -e "debug; mirror -R ./ /public_html; quit" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ftp://${{ secrets.FTP_SERVER }}
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }} # Reemplaza con tu servidor FTP
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}  # Usa los secretos de GitHub
