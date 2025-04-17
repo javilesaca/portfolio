@@ -1,0 +1,27 @@
+name: Deploy Portfolio to Namecheap
+
+on:
+  push:
+    branches:
+      - main  # Cambia a la rama en la que trabajas, si es diferente a 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Paso 1: Revisar el código del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Paso 2: Instalar dependencias de FTP
+      - name: Install lftp
+        run: sudo apt-get install lftp
+
+      # Paso 3: Subir archivos via FTP
+      - name: Upload files to Namecheap FTP server
+        run: |
+          lftp -e "mirror -R ./ /public_html; quit" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ftp://${{ secrets.FTP_SERVER }}
+        env:
+          FTP_SERVER: ftp.tudominio.com  # Reemplaza con tu servidor FTP
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}  # Usa los secretos de GitHub
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}  # Usa los secretos de GitHub
